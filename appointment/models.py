@@ -5,7 +5,7 @@ from doctor.models import Doctor
 class Appointment(models.Model):
     patient_id = models.ForeignKey(Patient, on_delete=models.CASCADE)
     doctor_id = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    reason = models.CharField()
+    reason = models.CharField(max_length=200)
     time= models.DateTimeField()
 
     def __str__(self):
