@@ -7,5 +7,7 @@ from appointment.models import *
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-def generate_bill(request)
+def generate_bill(request,pk)
+      report = Report.objects.get(id=pk)
+      
     

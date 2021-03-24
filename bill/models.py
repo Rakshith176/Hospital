@@ -12,4 +12,3 @@ class Bill(models.Model):
 
     def __str__(self):
         return '{} -> {} on {}'.format(self.patient_id,self.amount,self.bill_date)
-    

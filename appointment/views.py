@@ -12,15 +12,20 @@ import datetime,csv
 def appointments(request,pk)
     obj = Appointment.objects.get(id= pk)
     if request.user.is_superuser:
-        form = Add_appointment(instance = obj)
+        form = Confirm_Appointment(instance = obj)
          if request.method == 'POST':
-              form = Add_appointment(data = request.POST, instance = obj)
+              form = Confirm_Appointment(data = request.POST, instance = obj)
             if form.is_valid():
-                obj = form.save(commit = False)
-                obj.status = 'booked'
-                
-                obj.save()
-                messages.success(request, f'Book has been updated')
-                return redirect('all_books')
+                app_time = form.cleaned_data['time']
+                check = Appointment.objects.get(time= app_time)
+                if check:
+                    messages.danger(request, f'Book has been updated')
+                    return redirect('')
+                else:     
+                    obj = form.save(commit = False)
+                    obj.status = 'booked' 
+                    obj.save()
+                    messages.success(request, f'Book has been updated')
+                    return redirect('all_books')
                 
 

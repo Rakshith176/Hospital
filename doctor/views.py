@@ -10,9 +10,29 @@ import datetime
 
 @login_required
 def my_appointment(request)
-    my_appoints = Appointment.objects.filter(doctor_id = request.user.id)
-    coming_appointments = my_appoints.filter(time > datetime.datetime.now())
-    completed = my_appoints.filter(time < datetime.datetime.now())
+   if request.user.is_doctor == True
+        my_appoints = Appointment.objects.filter(doctor_id = request.user.id)
+        coming_appointments = my_appoints.filter(time > datetime.datetime.now())
+        completed = my_appoints.filter(time < datetime.datetime.now())
 
-
+def doctor_register(request)
+    if request.method == 'POST':
+        form = Doctor_register(request.POST)
+        profile_form = Doctor_Profile(request.POST)
+        check_key = check_doctor(request.POST)
+        if form.is_valid() and profile_form.is_valid():
+            if check_key.cleaned_data['special_key'] == 'Special-Key':
+                user = form.save()
+                profile = profile_form.save(commit = False)
+                profile.user = user
+                profile.save()
+                messages.success(request, f'Your account has been created! You are now able to log in')
+                return redirect('login')
+            else:
+                messages.error(request, f'You have not verified special key correctly')
+                return redirect('') #doctor-register page
+    else:
+        form = Student_register()
+        profile_form = Student_Profile()
+    return render(request, '', locals()) #template name doctor/register.html
 

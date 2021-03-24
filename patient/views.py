@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from .forms import *
 from .models import *
 from appointment.models import *
+from appointment.forms import *
 from report.models import *
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -13,6 +14,7 @@ import datetime,csv
 def register_patient(request)
     if request.method == 'POST':
         form = Patient_register(request.POST)
+        profile_form = Patient_Profile(request.POST)
         if form.is_valid():
             user = form.save()
             profile = profile_form.save(commit = False)
@@ -21,17 +23,18 @@ def register_patient(request)
             messages.success(request, f'Your account has been created! You are now able to log in')
             return redirect('login')
     else:
-        form = Student_register()
-        profile_form = Student_Profile()
+        form = Patient_register()
+        profile_form = Patient_Profile()
     return render(request, 'Lib/register.html', locals())
      
 @login_required
 def book_appointment(request)
     if request.method == 'POST':
+        book = Patient_Appointment(request.POST)
         check = Appointment.objects.filter(status = 'pending')
         check = check.filter(patient_id = request.user.id)
         if check:
-            #reason = form_name_from template 
+            reason = book.cleaned_data['reason']
             new_appointment = Appointment()
             new_appointment.patient_id = request.user.id
             new_appointment.status = 'pending'
