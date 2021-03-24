@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Hospital',
 		'USER': 'root',
-		'PASSWORD': '',
+		'PASSWORD': 'Rakshith@16',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
@@ -114,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
