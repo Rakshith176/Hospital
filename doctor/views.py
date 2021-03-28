@@ -9,13 +9,13 @@ from django.contrib.auth.decorators import login_required
 import datetime
 
 @login_required
-def my_appointment(request)
-   if request.user.is_doctor == True
-        my_appoints = Appointment.objects.filter(doctor_id = request.user.id)
-        coming_appointments = my_appoints.filter(time > datetime.datetime.now())
-        completed = my_appoints.filter(time < datetime.datetime.now())
+def my_appointment(request):
+    my_appoints = Appointment.objects.filter(doctor_id = request.user.id)
+    coming_appointments = my_appoints.filter( time__lte= datetime.datetime.now() )
+    completed = my_appoints.filter(time__gte = datetime.datetime.now())
+    return render(request,'doctor/appointments.html',locals())
 
-def doctor_register(request)
+def doctor_register(request):
     if request.method == 'POST':
         form = Doctor_register(request.POST)
         profile_form = Doctor_Profile(request.POST)
@@ -27,12 +27,12 @@ def doctor_register(request)
                 profile.user = user
                 profile.save()
                 messages.success(request, f'Your account has been created! You are now able to log in')
-                return redirect('login')
+                return redirect('register-doctor')
             else:
                 messages.error(request, f'You have not verified special key correctly')
-                return redirect('') #doctor-register page
+                return redirect('register-doctor') #doctor-register page
     else:
-        form = Student_register()
-        profile_form = Student_Profile()
-    return render(request, '', locals()) #template name doctor/register.html
+        form = Doctor_register()
+        profile_form = Doctor_Profile()
+    return render(request, 'doctor/register.html', locals()) #template name doctor/register.html
 

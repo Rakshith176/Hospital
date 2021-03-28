@@ -9,5 +9,9 @@ from django.contrib.auth.decorators import login_required
 
 def generate_bill(request,pk)
       report = Report.objects.get(id=pk)
+      bill_form = Generate_Bill(request.POST)
+      if bill_form.is_valid():
+      
+
       
     

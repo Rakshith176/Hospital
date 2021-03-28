@@ -19,13 +19,13 @@ def appointments(request,pk)
                 app_time = form.cleaned_data['time']
                 check = Appointment.objects.get(time= app_time)
                 if check:
-                    messages.danger(request, f'Book has been updated')
+                    messages.danger(request, f'Appointment already present at that time')
                     return redirect('')
                 else:     
                     obj = form.save(commit = False)
                     obj.status = 'booked' 
                     obj.save()
-                    messages.success(request, f'Book has been updated')
-                    return redirect('all_books')
+                    messages.success(request, f'Appointment has been confirmed')
+                    return redirect('')
                 
 
