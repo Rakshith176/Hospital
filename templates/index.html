@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container bg bg-white">
+        <center>
+        	{% if user.is_authenticated %}
+            <H2>
+           
+               WELCOME {{  is_patient }}<br>
+               <p>Go through the options for the desired actions</p>
+           
+            </H2>
+            {% else %}
+             <H2>If you need a patient account. create one</H2>
+             <!--<p>If registered please <a href="{% url 'login' %}">login</a></p> -->
+             {% endif %}
+    </div>
+    </center>
+{% endblock %}
