@@ -9,10 +9,11 @@ from django.contrib.auth.decorators import login_required
 import datetime
 
 @login_required
-def my_appointment(request):
-    my_appoints = Appointment.objects.filter(doctor_id = request.user.id)
-    coming_appointments = my_appoints.filter( time__lte= datetime.datetime.now() )
-    completed = my_appoints.filter(time__gte = datetime.datetime.now())
+def my_appointment(request):   
+    doctor_id = Doctor.objects.get(user_id = request.user.id)
+    my_appoints = Appointment.objects.filter(doctor_id = doctor_id)
+    coming_appointments = my_appoints.filter(time__gte= datetime.datetime.now() )
+    completed = my_appoints.filter(time__lte = datetime.datetime.now())
     return render(request,'doctor/appointments.html',locals())
 
 def doctor_register(request):

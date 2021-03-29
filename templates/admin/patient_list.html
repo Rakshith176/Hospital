@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+{%for list in list %}
+<ul class="list-group">
+            <li class="list-group-item">Patient: {{list}}<p>Age: {{list.age}}
+           <a class="pull-right" href="{% url 'create-report' pk=list.user_id %}">Create Report</a>  
+            </li>        
+ </ul>
+{%endfor%}
+
+{%endblock%}

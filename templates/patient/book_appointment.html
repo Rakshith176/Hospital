@@ -7,7 +7,8 @@
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Register</legend>
+                <p> Enter the reason for your appointment and desired time/date. The confirmation about the same will be shared soon</p>
+                <legend class="border-bottom mb-4">Book an appointment</legend>
 
                 {{ book|crispy }}  
             

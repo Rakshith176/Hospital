@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Bill</h5>
+    <h6 class="card-subtitle mb-2 text-muted">For {{bill.report_id}}</h6>
+    <p class="card-text">
+    Bill-details: {{bill.bill_details}}<br>
+    Bill-date: {{bill.bill_generated_on}}<br>
+    Amount: {{bill.amount}}
+    </p>  
+  </div>
+</div>
+
+{%endblock%}
