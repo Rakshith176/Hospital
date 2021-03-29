@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<H3>My - reports</H3>
+{%for list in report %}
+<ul class="list-group">
+            <li class="list-group-item">Report-id: {{list.id}}<p>Description: {{list.description}}</p><p>Opened-on: {{list.opened_on}}</p><p>Closed-on - {{list.closed_on}}</p>  
+            {% if not list.closed_on == None %}  
+                   <a class="pull-right" href="{% url 'patient-bill' pk=list.id %}">Bill</a>    
+                   {%endif%} 
+            </li>        
+ </ul>
+{%endfor%}
+
+{%endblock%}

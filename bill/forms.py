@@ -5,4 +5,4 @@ from bill.models import Bill
 class Generate_Bill(ModelForm):
     class Meta:
        model = Bill
-        fields = ['amount','bill_details']
+       fields = ['amount','bill_details']

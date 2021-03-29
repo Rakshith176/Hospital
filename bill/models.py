@@ -11,4 +11,4 @@ class Bill(models.Model):
     is_paid = models.BooleanField(default=False)
 
     def __str__(self):
-        return '{} -> {} on {}'.format(self.patient_id,self.amount,self.bill_date)
+        return '{} -> {} on {}'.format(self.patient_id,self.amount,self.bill_generated_on)

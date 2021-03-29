@@ -31,8 +31,11 @@
       </li>
       
       {% if not user.is_authenticated %}
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="{% url 'register-patient' %}">Register</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
       </li>
       {% endif %}
       
@@ -42,16 +45,35 @@
                         <a class="nav-link" href="{% url 'book-appointment' %}">Book Appointment</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">My Appointments</a>
+                        <a class="nav-link" href="{% url 'patient-appointment' %}">My Appointments</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="{% url 'patient-report' %}">My Reports</a>
                     </li>
                     <li class="nav-item">
-        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-      </li>
-       {% else %}
-       <li class="nav-item">
-        <a class="nav-link" href="{% url 'login' %}">Login</a>
-      </li>
+                       <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                     </li>
+       {% elif user.is_authenticated and user.is_staff %}
+          
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'doctor-appointments' %}">My Appointments</a>
+              </li>
+              {% if user.is_superuser %}
+              <li class="nav-item">
+                <a class="nav-link" href='admin/appointment/appointment'>Confirm Apppintments</a>
+              </li>
+               <li class="nav-item">
+                <a class="nav-link" href="{% url 'patient-list' %}">All-Patients</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'all-reports' %}">All-Reports</a>
+              </li>
 
+              {%endif%}                
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+              </li>
+                  
         {% endif %}
       
     </ul>

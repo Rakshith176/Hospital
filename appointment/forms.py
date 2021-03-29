@@ -10,4 +10,4 @@ class Confirm_Appointment(ModelForm):
 class Patient_Appointment(ModelForm):
     class Meta:
        model = Appointment
-       fields = ['reason']
+       fields = ['reason','doctor_id']

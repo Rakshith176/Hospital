@@ -42,7 +42,6 @@ body {font-family: Arial;}
 
 {% endblock styles %}
 
-
 {% block content %}
 
 <h2>Appointments</h2>
@@ -58,7 +57,7 @@ body {font-family: Arial;}
 
     {% for req in completed %}
             <ul class="list-group">
-            <li class="list-group-item">Patient: {{req.patient_id}}<p>Time: {{req.time}} </li>
+            <li class="list-group-item">Patient: {{req.patient_id}}<p>Time: {{req.time}}<p>Reason: {{req.reason}} </li>
             
             </ul>
 
@@ -77,7 +76,7 @@ body {font-family: Arial;}
     {% for req in coming_appointments  %}
             
             <ul class="list-group">
-            <li class="list-group-item">Patient: {{req.patient_id}}<p>Time: {{req.time}} </p></li>
+            <li class="list-group-item">Patient: {{req.patient_id}}<p>Time: {{req.time}}</p><p>Reason: {{req.reason}}</p></li>
             
             </ul>
 

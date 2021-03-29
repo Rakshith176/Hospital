@@ -11,10 +11,10 @@ application_status=(
 )
 class Appointment(models.Model):
     patient_id = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    doctor_id = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    doctor_id = models.ForeignKey(Doctor, on_delete=models.CASCADE,null=True)
     reason = models.CharField(max_length=200)
     status =  models.CharField(choices =application_status,default = 'none',max_length = 10)
-    time= models.DateTimeField(unique=True)
+    time= models.DateTimeField(unique=True,null=True)
 
     def __str__(self):
         return '{} at {}'.format(self.patient_id,self.time)

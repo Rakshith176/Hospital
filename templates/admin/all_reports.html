@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<H3>All - reports</H3>
+{%for list in reports %}
+<ul class="list-group">
+            <li class="list-group-item">Patient: {{list.patient_id}}<p>Description: {{list.description}}</p><p>Opened-on: {{list.opened_on}}</p><p>Closed-on - {{list.closed_on}}</p>
+            {%if list.closed_on == None %}
+                  <a class="pull-right" href="{% url 'close-report' pk=list.id %}">Close Report</a>  
+            {%else%}
+                <a class="pull-right" href="{% url 'create-bill' pk=list.id %}">Generate Bill</a>             
+            {%endif%}
+            </li>        
+ </ul>
+{%endfor%}
+
+{%endblock%}
