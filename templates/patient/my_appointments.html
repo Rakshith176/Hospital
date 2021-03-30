@@ -49,13 +49,14 @@ body {font-family: Arial;}
 <p>Click on the desired requests</p>
 <div class="tab">
   <button class="tablinks" onclick="openRequest(event, 'Approved')">Completed</button>
-  <button class="tablinks" onclick="openRequest(event, 'Pending')">Upcoming</button>
+  <button class="tablinks" onclick="openRequest(event, 'Pending')">Pending</button>
+  <button class="tablinks" onclick="openRequest(event, 'Booked')">Booked</button>
 </div>
 
 <div id="Approved" class="tabcontent">
-  <p>{%  if booked_appointments %}
+  <p>{%  if completed_appointments %}
 
-    {% for req in booked_appointments %}
+    {% for req in completed_appointments %}
             <ul class="list-group">
             <li class="list-group-item">Doctor: {{req.doctor_id}}<p>Time: {{req.time}} </li>
             
@@ -87,7 +88,26 @@ body {font-family: Arial;}
 
 {% endif %}</p> 
 </div>
+</p>
 
+<div id="Booked" class="tabcontent">
+  <h3>Upcoming</h3>
+  <p>{%  if upcoming_appointments  %}
+
+    {% for req in upcoming_appointments  %}
+            
+            <ul class="list-group">
+            <li class="list-group-item">Doctor: {{req.doctor_id}}<p>Time: {{req.time}} </p></li>
+            
+            </ul>
+
+    {%endfor%}
+
+{% else %}
+<H1>No Appointments yet</H1>   
+
+{% endif %}</p> 
+</div>
 </p>
 </div>
 

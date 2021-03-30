@@ -12,13 +12,13 @@ def generate_bill(request,pk):
       report = Report.objects.get(id=pk)
       check = Bill.objects.filter(report_id = report.id).exists()
       if not check:
-            if request.method == POST:
+            if request.method == 'POST':
                   bill_form = Generate_Bill(request.POST)
                   if bill_form.is_valid():
                         amount = bill_form.cleaned_data['amount']
                         details = bill_form.cleaned_data['bill_details']
                         bill = Bill()
-                        bill.report_id = report.id
+                        bill.report_id = report
                         bill.patient_id = report.patient_id
                         bill.amount = amount
                         bill.bill_details = details
