@@ -13,23 +13,40 @@ def create_report(request,pk):
     if request.user.is_superuser:
         patient_id = Patient.objects.get(user_id = pk)
         check = Report.objects.filter(patient_id=patient_id).exists()
-        if not check:
+        if check:
+            report = Report.objects.filter(patient_id=patient_id).order_by('-id')[0]
+            if not report.closed_on == None:
+                if request.method == 'POST':
+                    form = Create_Report(request.POST)
+                    if form.is_valid():
+                        new_report = Report()
+                        new_report.patient_id = patient_id
+                        new_report.description = form.cleaned_data['description']
+                        new_report.opened_on = datetime.datetime.now()
+                        new_report.save()
+                        messages.success(request, f'Report created')
+                        return redirect('patient-list')          
+                else:
+                    form = Create_Report()
+                return render(request,'admin/create_report.html',locals())
+            else:
+                messages.warning(request, f'There is already a open report for this patient')
+                return redirect('patient-list')
+        else:
             if request.method == 'POST':
-                form = Create_Report(request.POST)
-                if form.is_valid():
-                    new_report = Report()
-                    new_report.patient_id = patient_id
-                    new_report.description = form.cleaned_data['description']
-                    new_report.opened_on = datetime.datetime.now()
-                    new_report.save()
-                    messages.success(request, f'Report created')
-                    return redirect('patient-list')          
+                    form = Create_Report(request.POST)
+                    if form.is_valid():
+                        new_report = Report()
+                        new_report.patient_id = patient_id
+                        new_report.description = form.cleaned_data['description']
+                        new_report.opened_on = datetime.datetime.now()
+                        new_report.save()
+                        messages.success(request, f'Report created')
+                        return redirect('patient-list')          
             else:
                 form = Create_Report()
             return render(request,'admin/create_report.html',locals())
-        else:
-            messages.warning(request, f'There is already a open report for this patient')
-            return redirect('patient-list')
+
     else:
         messages.warning(request, f'Request denied')
         return redirect('home')
