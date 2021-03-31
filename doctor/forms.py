@@ -24,6 +24,3 @@ class Doctor_Profile(forms.ModelForm):
     class Meta:
         model = Doctor
         fields = ('age','specification','contact','is_doctor')
-
-class check_doctor(forms.Form):
-    special_key = forms.CharField(label='Enter special key provided')

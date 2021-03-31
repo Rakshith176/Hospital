@@ -20,18 +20,13 @@ def doctor_register(request):
     if request.method == 'POST':
         form = Doctor_register(request.POST)
         profile_form = Doctor_Profile(request.POST)
-        check_key = check_doctor(request.POST)
         if form.is_valid() and profile_form.is_valid():
-            if check_key.cleaned_data['special_key'] == 'Special-Key':
-                user = form.save()
-                profile = profile_form.save(commit = False)
-                profile.user = user
-                profile.save()
-                messages.success(request, f'Your account has been created! You are now able to log in')
-                return redirect('register-doctor')
-            else:
-                messages.error(request, f'You have not verified special key correctly')
-                return redirect('register-doctor') #doctor-register page
+            user = form.save()
+            profile = profile_form.save(commit = False)
+            profile.user = user
+            profile.save()
+            messages.success(request, f'Your account has been created! You are now able to log in')
+            return redirect('register-doctor')
     else:
         form = Doctor_register()
         profile_form = Doctor_Profile()
